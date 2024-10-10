@@ -28,14 +28,19 @@ A template repository to develop Kong plugins based on Go.
 
 * Plugins are developed in the `plugins` directory. Each plugin's entry point is a Go file with the suffix
   `*.plugin.go` (e.g. `demo.plugin.go`).
-* Every plugin must contain a `main` function that calls the PDK's `server.Start` function.
+* Every plugin must contain a `main` function that calls the PDK's `server.StartServer` function.
     ```go
     package main
+    import (
+	    "github.com/Kong/go-pdk/server"
+	    "plugins/demo"
+    )
+  
     func main() {
         _ = server.StartServer(demo.New, demo.Version, demo.Priority)
     }
     ```
-* The `pluginserver.Start` function takes three arguments:
+* The `server.StartServer` function takes three arguments:
     * `New` - A function that returns a new instance of the plugin.
     * `Version` - The version of the plugin.
     * `Priority` - The priority of the plugin (
@@ -47,7 +52,7 @@ A template repository to develop Kong plugins based on Go.
 ## How to develop a plugin
 
 1. Create a new go file in the `plugins` directory with the suffix `*.plugin.go` (e.g. `myplugin.plugin.go`).
-2. Have this file implement the `main` function that calls the PDK's `server.Start` function.
+2. Have this file implement the `main` function that calls the PDK's `server.StartServer` function.
 3. Follow this [guide](https://docs.konghq.com/gateway/3.7.x/plugin-development/pluginserver/go/) to implement the
    plugin.
 
@@ -81,6 +86,6 @@ A template repository to develop Kong plugins based on Go.
     ```
 3. Run the `docker compose build --no-cache kong` command to build the Kong Gateway with the plugins.
 4. Run the `docker compose up -d` command to start a Postgres DB, the initial migrations, and the Kong Gateway with the
-   plugins (You might need to run it two times).
+   plugins. You might need to run it two times.
 5. Test the plugin by creating a service and a route that uses the plugin (e.g. via Kong Manager UI).
 6. Check the plugin logs using the `docker compose logs -f kong` command.
