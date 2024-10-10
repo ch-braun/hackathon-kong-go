@@ -1,6 +1,6 @@
 # Hackathon "Kong Go"
 
-A template repository to develop Kong plugins based on Go.
+A template repository to develop Kong plugins based on Go. Not to be confused with the country of Congo 😉.
 
 ## Pre-requisites
 * Docker
